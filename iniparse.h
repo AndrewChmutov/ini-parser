@@ -18,4 +18,4 @@ short isCorrectKey(const char *str);
 void freeSections(Section *sections, int n);
 void copySectionName(char *secName, const char *line, int n);
 int findSection(Section *sections, const char *CLIargument, int size);
-int findKey(Section *sections, int choice);
+int findKey(Section *sections, char *token, int choice);

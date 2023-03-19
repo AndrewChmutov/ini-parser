@@ -125,13 +125,7 @@ void copySectionName(char *secName, const char *line, int n) {
     // secName[n - 3] = '\0';
 }
 
-int findSection(Section *sections, const char *CLIargument, int size) {
-    char *query = malloc((strlen(CLIargument) + 1) * sizeof(char));
-    strncpy(query, CLIargument, strlen(CLIargument));
-    query[strlen(CLIargument)] = '\0';
-    char *token;
-    token = strtok(query, ".");
-
+int findSection(Section *sections, const char *token, const int size) {
     int choice = -1;
     for (int i = 0; i < size; i++) {
         if (!strcmp(sections[i].name, token)) {
@@ -143,14 +137,10 @@ int findSection(Section *sections, const char *CLIargument, int size) {
     if (choice < 0)
         printf("Failed to find section [%s]\n", token);
 
-    free(query);
-
     return choice;
 }
 
-int findKey(Section *sections, int choice) {
-    char *token;
-    token = strtok(NULL, ".");
+int findKey(Section *sections, char *token, int choice) {
     int keyChoice = -1;
     for (int i = 0; i < sections[choice].size; i++) {
         if (!strcmp(sections[choice].keys[i], token)) {
