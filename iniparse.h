@@ -17,4 +17,4 @@ short isCorrectNameSection(const char *str);
 short isCorrectKey(const char *str);
 void freeSections(Section *sections, int n);
 void copySectionName(char *secName, const char *line, int n);
-int findSection(Section* sections, char* CLIargument, int size);
+int findSection(Section *sections, const char *CLIargument, int size);

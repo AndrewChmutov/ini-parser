@@ -124,3 +124,26 @@ void copySectionName(char *secName, const char *line, int n) {
     printf("%s\n", secName);
     // secName[n - 3] = '\0';
 }
+
+int findSection(Section *sections, const char *CLIargument, int size) {
+    char *query = malloc((strlen(CLIargument) + 1) * sizeof(char));
+    strncpy(query, CLIargument, strlen(CLIargument));
+    query[strlen(CLIargument)] = '\0';
+    char *token;
+    token = strtok(query, ".");
+
+    int choice = -1;
+    for (int i = 0; i < size; i++) {
+        if (!strcmp(sections[i].name, token)) {
+            choice = i;
+            break;
+        }
+    }
+
+    if (choice < 0)
+        printf("Failed to find section [%s]\n", token);
+
+    free(query);
+
+    return choice;
+}
