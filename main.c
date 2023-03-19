@@ -33,9 +33,7 @@ int main(int argc, char **argv) {
     for (int i = 0; i < sections_count; i++)    {   sections[i].size = 0;   }
     char* line = malloc(sizeof(char) * max_line_len);
 
-    // iterate through the sections
-    // check each line, look for a section
-    // parse all the data into structures
+    // declare and initialize auxiliary variables
     short isValid = 1;
     int section_i = 0;
     int n;
@@ -44,7 +42,9 @@ int main(int argc, char **argv) {
     char *key;
     char *value;
 
-
+    // iterate through the sections
+    // check each line, look for a section
+    // parse all the data into structures
     while (fgets(line, max_line_len + 1, ptrFile) != NULL) {
         // if there is a section name
         if (line[0] != '[') {
@@ -73,9 +73,11 @@ int main(int argc, char **argv) {
 
         // fill all the attributes
         while (fgets(line, max_line_len + 1, ptrFile) != NULL) {
+            // skip if new section
             if (line[0] == '[')
                 break;
 
+            // skip if blank line or comment
             if (line[0] == '\n')
                 continue;
 
@@ -83,6 +85,8 @@ int main(int argc, char **argv) {
                 gotoNextLine(ptrFile);
                 continue;
             }
+
+            // check keys
             key = malloc(sizeof(char) * strlen(line));
             value = malloc(sizeof(char) * strlen(line));
             sscanf(line, "%s = %s", key, value);
@@ -99,13 +103,15 @@ int main(int argc, char **argv) {
         }
 
         sections[section_i].size = attributes_count;
+        // allocate memory for section's attributes
         sections[section_i].keys = malloc(sizeof(char*) * attributes_count);
         sections[section_i].values = malloc(sizeof(char*) * attributes_count);
 
+        // back to the beginning of the section
         fseek(ptrFile, startSection, SEEK_SET);
         attributes_count = 0;
 
-        // fill section
+        // fill section's attributes
         while (fgets(line, max_line_len + 1, ptrFile) != NULL) {
             if (line[0] == '[')
                 break;
@@ -118,7 +124,7 @@ int main(int argc, char **argv) {
                 continue;
             }
 
-
+            // check key
             key = malloc(sizeof(char) * strlen(line));
             value = malloc(sizeof(char) * strlen(line));
             sscanf(line, "%s = %s", key, value);
@@ -128,44 +134,26 @@ int main(int argc, char **argv) {
                 continue;
             }
 
+            // if everything is alright,
+            // memory is already allocated,
+            // so just copy the pointer
             sections[section_i].keys[attributes_count] = key;
             sections[section_i].values[attributes_count] = value;
-
-            //sscanf(line, "%s = %s", sections[section_i].keys[attributes_count], sections[section_i].values[attributes_count]);
-            //printf("%s", sections[section_i].values[attributes_count]);
 
             attributes_count++;
         }
 
         section_i++;
 
+        //go to the next section
         n = strlen(line);
         if (line[n - 1] == '\n')
             fseek(ptrFile, -strlen(line) - 1, SEEK_CUR);
         else
             fseek(ptrFile, -strlen(line), SEEK_CUR);
-
-        
-        // char* token = strtok(line, " ");
-
-        // while (NULL != token) {
-        //     result += atoi(token);
-        //     token = strtok(NULL, " ");
-        // }
-
     }
 
-    // for (int i = 0; i < section_i; i++) {
-    //     printf("Section: %s\n", sections[i].name);
-        
-    //     for (int j = 0; j < sections[i].size; j++)
-    //         printf("%s = %s\n", sections[i].keys[j], sections[i].values[j]);
-
-    //     printf("\n");
-    // }
-    
-    
-
+    // the implementation of finding "section.key"
     if (isValid && argc > 1) {
         char *query = malloc((strlen(argv[1]) + 1) * sizeof(char));
         strncpy(query, argv[1], strlen(argv[1]));
