@@ -164,6 +164,7 @@ int main(int argc, char **argv) {
                 printf("%s\n", sections[choice].values[keyChoice]);
         }
     }
+    free(line);
 
     freeSections(sections, sections_count);
     fclose(ptrFile);
