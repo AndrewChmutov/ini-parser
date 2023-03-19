@@ -158,21 +158,9 @@ int main(int argc, char **argv) {
         int choice = findSection(sections, argv[1], section_i);
 
         if (choice >= 0) {
-            char *token;
-            token = strtok(NULL, ".");
-            int keyChoice = -1;
-            for (int i = 0; i < sections[choice].size; i++) {
-                if (!strcmp(sections[choice].keys[i], token)) {
-                    keyChoice = i;
-                    break;
-                }
-            }
+            int keyChoice = findKey(sections, choice);
 
-            if (keyChoice < 0) {
-                printf("Failed to find key \"%s\" in section [%s]\n", 
-                        token, sections[choice].name);
-            }
-            else
+            if (keyChoice >= 0)
                 printf("%s\n", sections[choice].values[keyChoice]);
         }
     }

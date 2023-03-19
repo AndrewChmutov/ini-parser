@@ -147,3 +147,22 @@ int findSection(Section *sections, const char *CLIargument, int size) {
 
     return choice;
 }
+
+int findKey(Section *sections, int choice) {
+    char *token;
+    token = strtok(NULL, ".");
+    int keyChoice = -1;
+    for (int i = 0; i < sections[choice].size; i++) {
+        if (!strcmp(sections[choice].keys[i], token)) {
+            keyChoice = i;
+            break;
+        }
+    }
+
+    if (keyChoice < 0) {
+        printf("Failed to find key \"%s\" in section [%s]\n", 
+                token, sections[choice].name);
+    }
+    
+    return keyChoice;
+}
