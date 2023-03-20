@@ -23,10 +23,6 @@ int main(int argc, char **argv) {
     int max_line_len    = 0;
     countValues(ptrFile, &sections_count, &max_line_len);
 
-    #ifdef DEBUG
-    printf("%d\n", max_line_len);
-    printf("%d\n", sections_count);
-    #endif
 
     // allocate memory for sections
     Section* sections = malloc(sizeof(Section) * sections_count);
@@ -148,12 +144,7 @@ int main(int argc, char **argv) {
 
         //go to the next section
         n = strlen(line);
-        // if (line[n - 1] == '\n')
-        //     fseek(ptrFile, -strlen(line) - 1, SEEK_CUR);
-        // else
-        //     fseek(ptrFile, -strlen(line), SEEK_CUR);
         fseek(ptrFile, -strlen(line) - 1, SEEK_CUR);
-        printf("%ld", ftell(ptrFile));
     }
 
     // the implementation of finding "section.key"

@@ -21,12 +21,6 @@ void countValues(FILE *file, int *sections, int *max_line_len) {
             (*sections)++;
         }
 
-        // skip comments
-        // if (tempChar == ';')
-        //     while (tempChar != '\n' && tempChar != EOF) {
-        //         tempChar = (char)fgetc(file);
-        //     }
-        // count line length
         else {
             while (tempChar != '\n' && tempChar != EOF) {
                 temp_line_len++;
