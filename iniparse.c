@@ -91,10 +91,10 @@ short isCorrectKey(const char *str) {
 
 void gotoNextLine(FILE *file) {
     char tempChar = (char)fgetc(file);
-    if (tempChar == '\n') {
-        fseek(file, -1, SEEK_CUR);
-        return;
-    }
+    // if (tempChar == '\n') {
+    //     fseek(file, -1, SEEK_CUR);
+    //     return;
+    // }
     while (tempChar != '\n' && tempChar != EOF) {
         tempChar = (char)fgetc(file);
     }

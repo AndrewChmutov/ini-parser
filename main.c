@@ -92,6 +92,7 @@ int main(int argc, char **argv) {
             sscanf(line, "%s = %s", key, value);
             if (!isCorrectKey(key)) {
                 printf("InvalidKeyException: %s\n", key);
+                isValid = 0;
                 free(key);
                 free(value);
                 continue;
