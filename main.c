@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
         // if there is a section name
         if (line[0] != '[') {
             // skip the commented line
-            gotoNextLine(ptrFile);
+            // gotoNextLine(ptrFile);
 
             // go to the next line
             continue;
@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
                 continue;
 
             if (line[0] == ';') {
-                gotoNextLine(ptrFile);
+                //gotoNextLine(ptrFile);
                 continue;
             }
 
@@ -121,7 +121,7 @@ int main(int argc, char **argv) {
                 continue;
 
             if (line[0] == ';') {
-                gotoNextLine(ptrFile);
+                //gotoNextLine(ptrFile);
                 continue;
             }
 
@@ -148,10 +148,12 @@ int main(int argc, char **argv) {
 
         //go to the next section
         n = strlen(line);
-        if (line[n - 1] == '\n')
-            fseek(ptrFile, -strlen(line) - 1, SEEK_CUR);
-        else
-            fseek(ptrFile, -strlen(line), SEEK_CUR);
+        // if (line[n - 1] == '\n')
+        //     fseek(ptrFile, -strlen(line) - 1, SEEK_CUR);
+        // else
+        //     fseek(ptrFile, -strlen(line), SEEK_CUR);
+        fseek(ptrFile, -strlen(line) - 1, SEEK_CUR);
+        printf("%ld", ftell(ptrFile));
     }
 
     // the implementation of finding "section.key"
