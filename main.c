@@ -10,13 +10,19 @@
 
 
 int main(int argc, char **argv) {
+    if (argc < 2) {
+        printf("Error: no file selected.\n");
+        return 1;
+    }
     // open file
     FILE* ptrFile;
-    ptrFile = fopen("test.ini", "r");
+    ptrFile = fopen(argv[1], "r");
 
     // exit if no file with such name
-    if (ptrFile == NULL)
+    if (ptrFile == NULL) {
+        printf("Error: cannot open this file: %s\n", argv[1]);
         exit(EXIT_FAILURE);
+    }
 
     // count the maximum sizes
     int sections_count  = 0;
@@ -148,10 +154,10 @@ int main(int argc, char **argv) {
     }
 
     // the implementation of finding "section.key"
-    if (isValid && argc > 1) {
-        n = strlen(argv[1]);
+    if (isValid && argc > 2) {
+        n = strlen(argv[2]);
         char *query = malloc((n + 1) * sizeof(char));
-        strncpy(query, argv[1], n);
+        strncpy(query, argv[2], n);
         query[n] = '\0';
 
         char *token;
