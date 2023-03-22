@@ -157,6 +157,47 @@ int main(int argc, char **argv) {
     if (isValid && argc == 3) {
         printf("%s\n", find(sections, argv[2], section_i));
     }
+    else if (isValid && argc == 4 && !strcmp(argv[2], "expression")) {
+        int n = strlen(argv[3]);
+        char *query = malloc((n + 1) * sizeof(char));
+        strncpy(query, argv[3], n);
+        query[n] = '\0';
+
+        char *firstKey = strtok(query, " ");
+        char *operation = strtok(NULL, " ");
+        char *secondKey = strtok(NULL, " ");
+
+        firstKey = find(sections, firstKey, section_i);
+        secondKey = find(sections, secondKey, section_i);
+
+        short numeric = isNumeric(firstKey) && isNumeric(secondKey);
+        short diftype = (isNumeric(firstKey) != isNumeric(secondKey));
+
+        if (numeric) {
+            if (!strcmp("+", operation))
+                printf("%lld\n", (long long)atoi(firstKey) + atoi(secondKey));
+            else if (!strcmp("-", operation))
+                printf("%lld\n", (long long)atoi(firstKey) - atoi(secondKey));
+            else if (!strcmp("*", operation))
+                printf("%lld\n", (long long)atoi(firstKey) * atoi(secondKey));
+            else if (!strcmp("/", operation))
+                printf("%f\n", 1.0 * atoi(firstKey) / atoi(secondKey));
+            else
+                printf("Unknown operator for numeric values: %s\n", operation);    
+        }
+        else if (!diftype) {
+            if (!strcmp("+", operation))
+                printf("%s%s", firstKey, secondKey);
+            else
+                printf("Unknown operator for strings: %s\n", operation);
+        }
+        else
+            printf("Cannot operate within different types\n");
+    
+
+
+        free(query);
+    }
     free(line);
 
     freeSections(sections, sections_count);
