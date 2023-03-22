@@ -150,3 +150,34 @@ int findKey(Section *sections, char *token, int choice) {
     
     return keyChoice;
 }
+
+char *find(Section *sections, char *argument, int size) {
+    int n = strlen(argument);
+    char *query = malloc((n + 1) * sizeof(char));
+    strncpy(query, argument, n);
+    query[n] = '\0';
+
+    char *token;
+    char *result;
+    short success = 0;
+    token = strtok(query, ".");
+
+    int choice = findSection(sections, token, size);
+
+    if (choice >= 0) {
+        token = strtok(NULL, ".");
+        int keyChoice = findKey(sections, token, choice);
+
+        if (keyChoice >= 0) {
+            result = sections[choice].values[keyChoice];
+            success = 1;
+        }
+    }
+    
+    free(query);
+
+    if (success)
+        return result;
+    else
+        return "";
+}

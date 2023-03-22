@@ -154,25 +154,8 @@ int main(int argc, char **argv) {
     }
 
     // the implementation of finding "section.key"
-    if (isValid && argc > 2) {
-        n = strlen(argv[2]);
-        char *query = malloc((n + 1) * sizeof(char));
-        strncpy(query, argv[2], n);
-        query[n] = '\0';
-
-        char *token;
-        token = strtok(query, ".");
-
-        int choice = findSection(sections, token, section_i);
-
-        if (choice >= 0) {
-            token = strtok(NULL, ".");
-            int keyChoice = findKey(sections, token, choice);
-
-            if (keyChoice >= 0)
-                printf("%s\n", sections[choice].values[keyChoice]);
-        }
-        free(query);
+    if (isValid && argc == 3) {
+        printf("%s\n", find(sections, argv[2], section_i));
     }
     free(line);
 
