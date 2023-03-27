@@ -12,11 +12,8 @@ typedef struct Section {
 void countValues(FILE *file, int *sections, int *max_line_len);
 int isNumeric(const char *str);
 short isCorrectName(const char *str);
-void gotoNextLine(FILE *file);
 short isCorrectNameSection(const char *str);
 short isCorrectKey(const char *str);
 void freeSections(Section *sections, int n);
 void copySectionName(char *secName, const char *line, int n);
-int findSection(Section *sections, const char *CLIargument, int size);
-int findKey(Section *sections, char *token, int choice);
 char *find(Section *sections, char *argument, int size);

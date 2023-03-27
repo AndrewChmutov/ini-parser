@@ -39,10 +39,12 @@ void countValues(FILE *file, int *sections, int *max_line_len) {
 }
 
 
+
 int isNumeric(const char *str) {
     int n;
     return sscanf(str, "%d", &n) == 1 && !isspace(*str);
 }
+
 
 
 short isCorrectName(const char *str) {
@@ -56,6 +58,7 @@ short isCorrectName(const char *str) {
 
     return 1;
 }
+
 
 short isCorrectNameSection(const char *str) {
     int n = strlen(str);
@@ -73,6 +76,7 @@ short isCorrectNameSection(const char *str) {
     return 1;
 }
 
+
 short isCorrectKey(const char *str) {
     int n = strlen(str);
 
@@ -83,16 +87,6 @@ short isCorrectKey(const char *str) {
     return 1;
 }
 
-void gotoNextLine(FILE *file) {
-    char tempChar = (char)fgetc(file);
-    // if (tempChar == '\n') {
-    //     fseek(file, -1, SEEK_CUR);
-    //     return;
-    // }
-    while (tempChar != '\n' && tempChar != EOF) {
-        tempChar = (char)fgetc(file);
-    }
-}
 
 void freeSections(Section *sections, int n) {
     for (int i = 0; i < n; i++) {
@@ -110,6 +104,7 @@ void freeSections(Section *sections, int n) {
     free(sections);
 }
 
+
 void copySectionName(char *secName, const char *line, int n) {
     for (int i = 1; i < n - 2; i++)
         secName[i - 1] = line[i];
@@ -118,6 +113,7 @@ void copySectionName(char *secName, const char *line, int n) {
     printf("%s\n", secName);
     // secName[n - 3] = '\0';
 }
+
 
 int findSection(Section *sections, const char *token, const int size) {
     int choice = -1;
@@ -133,6 +129,7 @@ int findSection(Section *sections, const char *token, const int size) {
 
     return choice;
 }
+
 
 int findKey(Section *sections, char *token, int choice) {
     int keyChoice = -1;
@@ -150,6 +147,7 @@ int findKey(Section *sections, char *token, int choice) {
     
     return keyChoice;
 }
+
 
 char *find(Section *sections, char *argument, int size) {
     int n = strlen(argument);
