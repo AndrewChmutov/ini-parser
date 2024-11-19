@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "iniparse.h"
+#include <iniparse.h>
 
 
 // count amount of sections[0].nd maximum length of a single line

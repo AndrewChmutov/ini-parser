@@ -6,7 +6,7 @@
 
 // #define DEBUG
 
-#include "iniparse.h"
+#include <iniparse.h>
 
 
 int main(int argc, char **argv) {
